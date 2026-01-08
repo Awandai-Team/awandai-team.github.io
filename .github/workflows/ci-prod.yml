@@ -1,0 +1,23 @@
+name: Build Test (prod)
+
+on:
+  push:
+    branches: ["prod"]
+  pull_request:
+    branches: ["prod"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm install
+      - run: npm run lint
+      - run: npm run build
